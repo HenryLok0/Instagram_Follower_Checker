@@ -10,8 +10,14 @@ This code fetches Instagram user's friendship statistics, displaying:
 - **PeopleIDontFollowBack**: Usernames that follow you but you don't follow back.
 - **PeopleNotFollowingMeBack**: Usernames you follow but don't follow you back.
  
-Also, you can use this page turn API if you need the JSON file format.
-https://henrylok0.github.io/Instagram_Follower_Checker/Data_Formatter.html
+## Website
+
+1. Generate JavaScript code to check Instagram account details. https://henrylok0.github.io/Instagram_Follower_Checker/index.html
+   
+2. Transform your raw API data into a structured JSON format easily. https://henrylok0.github.io/Instagram_Follower_Checker/Data_Formatter.html
+
+3. Comparator (2-5 Instagram accounts) with the same followers and following Instagram accounts. https://henrylok0.github.io/Instagram_Follower_Checker/JSON_Comparator.html
+
 ## Usage
 
 1. Make sure you are on the Instagram website when running this script. If you are not on the Instagram website, the script will automatically redirect you to Instagram.
