@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Comparator</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid #1e293b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .json-input,
+        .results {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            resize: vertical;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4f46e5;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-section {
+            margin-top: 20px;
+        }
+
+        .result-section h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #94a3b8;
+        }
+
+        .result-section pre {
+            background-color: #0f172a;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            overflow-x: auto;
+            color: #a3e635;
+        }
+
+        .percentage {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .progress-bar-inner {
+            height: 20px;
+            background-color: #4f46e5;
+            transition: width 0.3s;
+        }
+
+        .progress-bar-green {
+            background-color: #10b981;
+        }
+
+        .progress-bar-red {
+            background-color: #ef4444;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>JSON Comparator</h1>
+        <p>Compare JSON data easily.</p>
+    </header>
+    <nav>
+        <a href="index.html">Generated JavaScript Code</a>
+        <a href="Data_Formatter.html">API Formatter</a>
+        <a href="JSON_Comparator.html">JSON Comparator</a>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="json-input">
+                <h2>JSON 1</h2>
+                <textarea id="json1"></textarea>
+                <h2>JSON 2</h2>
+                <textarea id="json2"></textarea>
+                <button onclick="compareJSON()">Compare</button>
+                <div class="progress-bar">
+                    <div class="progress-bar-inner" id="progress-bar-inner"></div>
+                </div>
+            </div>
+            <div class="results">
+                <div class="result-section">
+                    <h3>Followers - Same</h3>
+                    <pre id="followers-same"></pre>
+                    <div class="percentage" id="followers-same-percentage"></div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner progress-bar-green" id="followers-same-progress"></div>
+                        <div class="progress-bar-inner progress-bar-red" id="followers-different-progress"></div>
+                    </div>
+                </div>
+                <div class="result-section">
+                    <h3>Followers - Different</h3>
+                    <pre id="followers-different"></pre>
+                </div>
+                <div class="result-section">
+                    <h3>Following - Same</h3>
+                    <pre id="following-same"></pre>
+                    <div class="percentage" id="following-same-percentage"></div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner progress-bar-green" id="following-same-progress"></div>
+                        <div class="progress-bar-inner progress-bar-red" id="following-different-progress"></div>
+                    </div>
+                </div>
+                <div class="result-section">
+                    <h3>Following - Different</h3>
+                    <pre id="following-different"></pre>
+                </div>
+                <div class="result-section">
+                    <h3>People I Don't Follow Back - Same</h3>
+                    <pre id="peopleidontfollowback-same"></pre>
+                    <div class="percentage" id="peopleidontfollowback-same-percentage"></div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner progress-bar-green" id="peopleidontfollowback-same-progress"></div>
+                        <div class="progress-bar-inner progress-bar-red" id="peopleidontfollowback-different-progress"></div>
+                    </div>
+                </div>
+                <div class="result-section">
+                    <h3>People I Don't Follow Back - Different</h3>
+                    <pre id="peopleidontfollowback-different"></pre>
+                </div>
+                <div class="result-section">
+                    <h3>People Not Following Me Back - Same</h3>
+                    <pre id="peoplenotfollowingmeback-same"></pre>
+                    <div class="percentage" id="peoplenotfollowingmeback-same-percentage"></div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner progress-bar-green" id="peoplenotfollowingmeback-same-progress"></div>
+                        <div class="progress-bar-inner progress-bar-red" id="peoplenotfollowingmeback-different-progress"></div>
+                    </div>
+                </div>
+                <div class="result-section">
+                    <h3>People Not Following Me Back - Different</h3>
+                    <pre id="peoplenotfollowingmeback-different"></pre>
+                </div>
+                <button onclick="copyResultsToClipboard()">Copy Results</button>
+                <button onclick="saveResults()">Save Results</button>
+            </div>
+        </div>
+    </main>
+    <script>
+        function compareJSON() {
+            const json1 = JSON.parse(document.getElementById('json1').value);
+            const json2 = JSON.parse(document.getElementById('json2').value);
+
+            const categories = ['Followers', 'Following', 'PeopleIDontFollowBack', 'PeopleNotFollowingMeBack'];
+            const progressBar = document.getElementById('progress-bar-inner');
+            const totalCategories = categories.length;
+            let completedCategories = 0;
+
+            categories.forEach(category => {
+                const same = json1[category].filter(value => json2[category].includes(value));
+                const different = json1[category].filter(value => !json2[category].includes(value)).concat(json2[category].filter(value => !json1[category].includes(value)));
+
+                const total = json1[category].length + json2[category].length - same.length;
+                const percentage = total > 0 ? ((same.length / total) * 100).toFixed(2) : 100;
+                const differentPercentage = (100 - percentage).toFixed(2);
+
+                document.getElementById(`${category.toLowerCase()}-same`).textContent = JSON.stringify(same, null, 2);
+                document.getElementById(`${category.toLowerCase()}-different`).textContent = JSON.stringify(different, null, 2);
+                document.getElementById(`${category.toLowerCase()}-same-percentage`).textContent = `Same items percentage: ${percentage}% (Same: ${same.length}, Different: ${different.length})`;
+
+                document.getElementById(`${category.toLowerCase()}-same-progress`).style.width = `${percentage}%`;
+                document.getElementById(`${category.toLowerCase()}-different-progress`).style.width = `${differentPercentage}%`;
+
+                completedCategories++;
+                progressBar.style.width = `${(completedCategories / totalCategories) * 100}%`;
+            });
+        }
+
+        function saveResults() {
+            const results = {
+                followersSame: document.getElementById('followers-same').textContent,
+                followersDifferent: document.getElementById('followers-different').textContent,
+                followingSame: document.getElementById('following-same').textContent,
+                followingDifferent: document.getElementById('following-different').textContent,
+                peopleIDontFollowBackSame: document.getElementById('peopleidontfollowback-same').textContent,
+                peopleIDontFollowBackDifferent: document.getElementById('peopleidontfollowback-different').textContent,
+                peopleNotFollowingMeBackSame: document.getElementById('peoplenotfollowingmeback-same').textContent,
+                peopleNotFollowingMeBackDifferent: document.getElementById('peoplenotfollowingmeback-different').textContent
+            };
+
+            const hasData = Object.values(results).some(result => result.trim() !== '');
+
+            if (!hasData) {
+                alert('No data to save!');
+                return;
+            }
+
+            const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'comparison_results.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyResultsToClipboard() {
+            const results = {
+                followersSame: document.getElementById('followers-same').textContent,
+                followersDifferent: document.getElementById('followers-different').textContent,
+                followingSame: document.getElementById('following-same').textContent,
+                followingDifferent: document.getElementById('following-different').textContent,
+                peopleIDontFollowBackSame: document.getElementById('peopleidontfollowback-same').textContent,
+                peopleIDontFollowBackDifferent: document.getElementById('peopleidontfollowback-different').textContent,
+                peopleNotFollowingMeBackSame: document.getElementById('peoplenotfollowingmeback-same').textContent,
+                peopleNotFollowingMeBackDifferent: document.getElementById('peoplenotfollowingmeback-different').textContent
+            };
+
+            const hasData = Object.values(results).some(result => result.trim() !== '');
+
+            if (!hasData) {
+                alert('No data to copy!');
+                return;
+            }
+
+            const resultsText = JSON.stringify(results, null, 2);
+            navigator.clipboard.writeText(resultsText).then(() => {
+                alert('Results copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy results: ' + err);
+            });
+        }
+    </script>
+</body>
+
+</html>

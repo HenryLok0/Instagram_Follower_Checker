@@ -1,28 +1,3 @@
-# Instagram_Follower _Checker
-
-This script helps you fetch Instagram user's followers and following data, and find out who is not following you back or who you are not following back.
-## Description
-
-This code fetches Instagram user's friendship statistics, displaying:
-
-- **Followers**: Usernames that follow you.
-- **Following**: Usernames you follow.
-- **PeopleIDontFollowBack**: Usernames that follow you but you don't follow back.
-- **PeopleNotFollowingMeBack**: Usernames you follow but don't follow you back.
- 
-Also, you can use this page turn API if you need the JSON file format.
-https://henrylok0.github.io/Instagram_Follower_Checker/Data_Formatter.html
-## Usage
-
-1. Make sure you are on the Instagram website when running this script. If you are not on the Instagram website, the script will automatically redirect you to Instagram.
-
-2. Make sure you log in to your account on Instagram and you must follow that account if the account is private.
-
-3. Open your browser's developer tools (usually by pressing `F12` or `Ctrl+Shift+I`) and switch to the "Console" tab.
-
-4. Copy and paste the following code into the console:
-
-```js
 if (window.location.origin !== "https://www.instagram.com") {
   window.alert(
     "Hey! You need to be on the instagram site before you run the code. I'm taking you there now but you're going to have to run the code into the console again.",
@@ -161,22 +136,3 @@ username = "instagram_username";
 //
 //
 getUserFriendshipStats(username).then(console.log);
-```
-
-5. Replace the `username` variable in the code with your Instagram username:
-
-```js
-username = "instagram_username";
-```
-
-6. Press `Enter` to run the code.
-
-7. Wait for the script to complete and check the results in the console. The results will show your followers and following lists, as well as who is not following you back and who you are not following back.
-
-## Notes
-
-- This script is for educational and personal use only. Do not use it for any activities that violate Instagram's terms of service.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.

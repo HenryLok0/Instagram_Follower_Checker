@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Formatter</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid #1e293b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        /* Navigation Menu */
+        nav {
+            background: #1e293b;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        textarea,
+        pre {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        textarea {
+            height: 200px;
+            background: #1e293b;
+            color: #e2e8f0;
+        }
+
+        pre {
+            background: #0f172a;
+            min-height: 150px;
+            color: #a3e635;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>API Data Formatter</h1>
+        <p>Transform your raw API data into a structured JSON format easily.</p>
+    </header>
+    <nav>
+        <a href="index.html">Generated JavaScript Code</a>
+        <a href="Data_Formatter.html">API Formatter</a>
+        <a href="JSON_Comparator.html">JSON Comparator</a>
+    </nav>
+    <main>
+        <textarea id="inputData" placeholder="Paste your API data here..."></textarea>
+        <div class="button-group">
+            <button onclick="formatData()">Format Data</button>
+            <button onclick="copyToClipboard()">Copy to Clipboard</button>
+            <button onclick="saveToFile()">Save to File</button>
+        </div>
+        <pre id="outputData"></pre>
+    </main>
+    <script>
+        function formatData() {
+            const rawInput = document.getElementById("inputData").value.trim();
+    
+            if (!rawInput) {
+                alert("Please enter API data before formatting.");
+                return;
+            }
+    
+            try {
+                const followersMatch = rawInput.match(/Followers\s*:\s*\(\d+\)\s*\[([^\]]+)\]/);
+                const followingMatch = rawInput.match(/Following\s*:\s*\(\d+\)\s*\[([^\]]+)\]/);
+                const peopleIDontFollowBackMatch = rawInput.match(/PeopleIDontFollowBack\s*:\s*\(\d+\)\s*\[([^\]]+)\]/);
+                const peopleNotFollowingMeBackMatch = rawInput.match(/PeopleNotFollowingMeBack\s*:\s*\(\d+\)\s*\[([^\]]+)\]/);
+    
+                const followers = followersMatch ? followersMatch[1].split(",").map(item => item.trim().replace(/['"]+/g, "")) : [];
+                const following = followingMatch ? followingMatch[1].split(",").map(item => item.trim().replace(/['"]+/g, "")) : [];
+                const peopleIDontFollowBack = peopleIDontFollowBackMatch ? peopleIDontFollowBackMatch[1].split(",").map(item => item.trim().replace(/['"]+/g, "")) : [];
+                const peopleNotFollowingMeBack = peopleNotFollowingMeBackMatch ? peopleNotFollowingMeBackMatch[1].split(",").map(item => item.trim().replace(/['"]+/g, "")) : [];
+    
+                const formattedData = {
+                    Followers: followers,
+                    Following: following,
+                    PeopleIDontFollowBack: peopleIDontFollowBack,
+                    PeopleNotFollowingMeBack: peopleNotFollowingMeBack
+                };
+    
+                document.getElementById("outputData").textContent = JSON.stringify(formattedData, null, 2);
+            } catch (error) {
+                document.getElementById("outputData").textContent = "Error: Invalid input format. Please check your data.";
+            }
+        }
+    
+        function copyToClipboard() {
+            const outputData = document.getElementById("outputData").textContent.trim();
+    
+            if (!outputData) {
+                alert("Nothing to copy! Please format the data first.");
+                return;
+            }
+    
+            navigator.clipboard.writeText(outputData).then(() => {
+                alert("Formatted data copied to clipboard!");
+            }).catch(err => {
+                alert("Failed to copy: " + err);
+            });
+        }
+    
+        function saveToFile() {
+            const outputData = document.getElementById("outputData").textContent.trim();
+    
+            if (!outputData) {
+                alert("Nothing to save! Please format the data first.");
+                return;
+            }
+    
+            const blob = new Blob([outputData], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "formatted_data.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+
+</html>

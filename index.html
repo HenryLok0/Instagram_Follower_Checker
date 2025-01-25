@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Generated JavaScript Code</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid #1e293b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-section,
+        .output-section,
+        .usage-section {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 16px;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4f46e5;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(79, 70, 229, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            resize: vertical;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .usage-section {
+            color: #94a3b8;
+        }
+
+        .highlight {
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Instagram Username Checker</h1>
+        <p>Generate JavaScript code to check Instagram account details.</p>
+    </header>
+    <nav>
+        <a href="index.html">Generated JavaScript Code</a>
+        <a href="Data_Formatter.html">API Formatter</a>
+        <a href="JSON_Comparator.html">JSON Comparator</a>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="usage-section">
+                <h2>Usage</h2>
+                <p>1. Make sure you are on the <span class="highlight">Instagram</span> website when running this script. If you are not on the Instagram website, the script will automatically redirect you to <a href="https://www.instagram.com/" target="_blank" class="highlight">Instagram</a>.</p>
+                <p>2. Make sure you <span class="highlight">log in</span> to your account on Instagram and you must <span class="highlight">follow</span> that account if the account is private.</p>
+                <p>3. Open your browser's <span class="highlight">developer tools</span> (usually by pressing <span class="highlight">F12</span> or <span class="highlight">Ctrl+Shift+I</span>) and switch to the <span class="highlight">"Console"</span> tab.</p>
+            </div>
+            <div class="input-section">
+                <h2>Enter Instagram Username</h2>
+                <input type="text" id="username" placeholder="Enter Instagram username">
+                <button onclick="generateCode()">Generate Code</button>
+            </div>
+            <div class="output-section">
+                <h2>Generated JavaScript Code</h2>
+                <textarea id="generatedCode" readonly></textarea>
+                <button onclick="copyToClipboard()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </main>
+    <script>
+        function generateCode() {
+            const username = document.getElementById('username').value;
+            if (!username) {
+                alert("Please enter an Instagram username.");
+                return;
+            }
+            const code = `
+if (window.location.origin !== "https://www.instagram.com") {
+  window.alert(
+    "Hey! You need to be on the instagram site before you run the code. I'm taking you there now but you're going to have to run the code into the console again.",
+  );
+  window.location.href = "https://www.instagram.com";
+  console.clear();
+}
+
+const fetchOptions = {
+  credentials: "include",
+  headers: {
+    "X-IG-App-ID": "936619743392459",
+  },
+  method: "GET",
+};
+
+let username = "${username}";
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+const concatFriendshipsApiResponse = async (
+  list,
+  user_id,
+  count,
+  next_max_id = "",
+) => {
+  let url = \`https://www.instagram.com/api/v1/friendships/\${user_id}/\${list}/?count=\${count}\`;
+  if (next_max_id) {
+    url += \`&max_id=\${next_max_id}\`;
+  }
+
+  const data = await fetch(url, fetchOptions).then((r) => r.json());
+
+  if (data.next_max_id) {
+    const timeToSleep = random(800, 1500);
+    console.log(
+      \`Loaded \${data.users.length} \${list}. Sleeping \${timeToSleep}ms to avoid rate limiting\`,
+    );
+
+    await sleep(timeToSleep);
+
+    return data.users.concat(
+      await concatFriendshipsApiResponse(
+        list,
+        user_id,
+        count,
+        data.next_max_id,
+      ),
+    );
+  }
+
+  return data.users;
+};
+
+const getFollowers = (user_id, count = 50, next_max_id = "") => {
+  return concatFriendshipsApiResponse("followers", user_id, count, next_max_id);
+};
+
+const getFollowing = (user_id, count = 50, next_max_id = "") => {
+  return concatFriendshipsApiResponse("following", user_id, count, next_max_id);
+};
+
+const getUserId = async (username) => {
+  let user = username;
+
+  const lower = user.toLowerCase();
+  const url = \`https://www.instagram.com/api/v1/web/search/topsearch/?context=blended&query=\${lower}&include_reel=false\`;
+  const data = await fetch(url, fetchOptions).then((r) => r.json());
+
+  const result = data.users?.find(
+    (result) => result.user.username.toLowerCase() === lower,
+  );
+
+  return result?.user?.pk || null;
+};
+
+const getUserFriendshipStats = async (username) => {
+  const user_id = await getUserId(username);
+
+  if (!user_id) {
+    throw new Error(\`Could not find user with username \${username}\`);
+  }
+
+  const followers = await getFollowers(user_id);
+  const following = await getFollowing(user_id);
+
+  const followersUsernames = followers.map((follower) =>
+    follower.username.toLowerCase(),
+  );
+  const followingUsernames = following.map((followed) =>
+    followed.username.toLowerCase(),
+  );
+
+  const followerSet = new Set(followersUsernames);
+  const followingSet = new Set(followingUsernames);
+
+  console.log(Array(28).fill("-").join(""));
+  console.log(
+    \`Fetched\`,
+    followerSet.size,
+    "followers and ",
+    followingSet.size,
+    " following.",
+  );
+
+  console.log(
+    \`If this doesn't seem right then some of the output might be inaccurate\`,
+  );
+
+  const PeopleIDontFollowBack = Array.from(followerSet).filter(
+    (follower) => !followingSet.has(follower),
+  );
+
+  const PeopleNotFollowingMeBack = Array.from(followingSet).filter(
+    (following) => !followerSet.has(following),
+  );
+
+  return {
+    Followers: followersUsernames,
+    Following: followingUsernames,
+    PeopleIDontFollowBack,
+    PeopleNotFollowingMeBack,
+  };
+};
+
+getUserFriendshipStats(username).then(console.log);
+            `;
+            document.getElementById('generatedCode').value = code.trim();
+        }
+
+        function copyToClipboard() {
+            const code = document.getElementById('generatedCode').value;
+            if (!code) {
+                alert("No code to copy. Please generate the code first.");
+                return;
+            }
+            const textarea = document.createElement("textarea");
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Code copied to clipboard!");
+        }
+    </script>
+</body>
+
+</html>
