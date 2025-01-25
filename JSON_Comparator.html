@@ -195,10 +195,19 @@
     <main>
         <div class="container">
             <div class="json-input">
-                <h2>JSON 1</h2>
-                <textarea id="json1"></textarea>
-                <h2>JSON 2</h2>
-                <textarea id="json2"></textarea>
+                <h2>Number of Accounts to Compare</h2>
+                <select id="account-count" onchange="updateTextAreas()">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <div id="json-textareas">
+                    <h2>JSON 1</h2>
+                    <textarea id="json1"></textarea>
+                    <h2>JSON 2</h2>
+                    <textarea id="json2"></textarea>
+                </div>
                 <button onclick="compareJSON()">Compare</button>
                 <div class="progress-bar">
                     <div class="progress-bar-inner" id="progress-bar-inner"></div>
@@ -263,9 +272,24 @@
         </div>
     </main>
     <script>
+        function updateTextAreas() {
+            const count = document.getElementById('account-count').value;
+            const container = document.getElementById('json-textareas');
+            container.innerHTML = '';
+            for (let i = 1; i <= count; i++) {
+                const textarea = document.createElement('textarea');
+                textarea.id = `json${i}`;
+                container.appendChild(document.createElement('h2')).textContent = `JSON ${i}`;
+                container.appendChild(textarea);
+            }
+        }
+
         function compareJSON() {
-            const json1 = JSON.parse(document.getElementById('json1').value);
-            const json2 = JSON.parse(document.getElementById('json2').value);
+            const count = document.getElementById('account-count').value;
+            const jsons = [];
+            for (let i = 1; i <= count; i++) {
+                jsons.push(JSON.parse(document.getElementById(`json${i}`).value));
+            }
 
             const categories = ['Followers', 'Following', 'PeopleIDontFollowBack', 'PeopleNotFollowingMeBack'];
             const progressBar = document.getElementById('progress-bar-inner');
@@ -273,10 +297,10 @@
             let completedCategories = 0;
 
             categories.forEach(category => {
-                const same = json1[category].filter(value => json2[category].includes(value));
-                const different = json1[category].filter(value => !json2[category].includes(value)).concat(json2[category].filter(value => !json1[category].includes(value)));
+                const same = jsons.reduce((acc, json) => acc.filter(value => json[category].includes(value)), jsons[0][category]);
+                const different = jsons.reduce((acc, json) => acc.concat(json[category].filter(value => !same.includes(value))), []);
 
-                const total = json1[category].length + json2[category].length - same.length;
+                const total = jsons.reduce((acc, json) => acc + json[category].length, 0) - same.length;
                 const percentage = total > 0 ? ((same.length / total) * 100).toFixed(2) : 100;
                 const differentPercentage = (100 - percentage).toFixed(2);
 
