@@ -1,8 +1,4 @@
-## Reference
-This GitHub repository references this and creates a GitHub repository that can do all the following: generate JavaScript code, convert API data into JSON format, and compare 2-5 Instagram accounts with the same followers and following Instagram accounts.
-https://gist.github.com/abir-taheer/0d3f1313def5eec6b78399c0fb69e4b1
-
-## Instagram_Follower _Checker
+# Instagram_Follower_Checker
 
 This script helps you fetch Instagram user's followers and following data, and find out who is not following you back or who you are not following back.
 ## Description
@@ -186,6 +182,11 @@ username = "instagram_username";
 ## Notes
 
 - This script is for educational and personal use only. Do not use it for any activities that violate Instagram's terms of service.
+
+## Reference
+This GitHub repository references this and creates a GitHub repository that can do all the following: generate JavaScript code, convert API data into JSON format, and compare 2-5 Instagram accounts with the same followers and following Instagram accounts.
+https://gist.github.com/abir-taheer/0d3f1313def5eec6b78399c0fb69e4b1
+
 
 ## License
 
