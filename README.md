@@ -190,4 +190,8 @@ https://gist.github.com/abir-taheer/0d3f1313def5eec6b78399c0fb69e4b1
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+MIT License - see [LICENSE](LICENSE) for details.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=HenryLok0/Instagram_Follower_Checker&type=Date)](https://star-history.com/#HenryLok0/Instagram_Follower_Checker&Date)
