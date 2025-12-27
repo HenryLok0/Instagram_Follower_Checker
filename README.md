@@ -18,6 +18,12 @@ This code fetches Instagram user's friendship statistics, displaying:
 
 3. Comparator (2-5 Instagram accounts) with the same followers and following Instagram accounts. https://henrylok0.github.io/Instagram_Follower_Checker/JSON_Comparator.html
 
+## Safety & Privacy
+
+- **Client-Side Execution**: This script runs entirely within your web browser. No data is sent to any third-party servers.
+- **Open Source**: The code is fully transparent. You can review the JavaScript code before running it to ensure it only interacts with Instagram's official API.
+- **No Credentials Stored**: The script uses your active browser session to fetch data. It does not ask for, store, or transmit your password.
+
 ## Usage
 
 1. Make sure you are on the Instagram website when running this script. If you are not on the Instagram website, the script will automatically redirect you to Instagram.
