@@ -5,24 +5,68 @@
     <meta charset="UTF-8">
     <title>JSON Comparator</title>
     <style>
+        :root {
+            --bg-gradient-start: #1e293b;
+            --bg-gradient-end: #334155;
+            --text-color: #e2e8f0;
+            --header-bg: #0f172a;
+            --header-text: #f8fafc;
+            --header-border: #1e293b;
+            --nav-bg: #1e293b;
+            --nav-link-color: #e2e8f0;
+            --card-bg: #1e293b;
+            --input-bg: #0f172a;
+            --input-text: #e2e8f0;
+            --input-border: #334155;
+            --button-bg: #4f46e5;
+            --button-text: #fff;
+            --secondary-text: #94a3b8;
+            --pre-bg: #0f172a;
+            --pre-text: #a3e635;
+            --progress-bg: #475569;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-gradient-start: #f1f5f9;
+            --bg-gradient-end: #e2e8f0;
+            --text-color: #1e293b;
+            --header-bg: #ffffff;
+            --header-text: #0f172a;
+            --header-border: #e2e8f0;
+            --nav-bg: #ffffff;
+            --nav-link-color: #1e293b;
+            --card-bg: #ffffff;
+            --input-bg: #f8fafc;
+            --input-text: #1e293b;
+            --input-border: #cbd5e1;
+            --secondary-text: #475569;
+            --pre-bg: #f8fafc;
+            --pre-text: #166534;
+            --progress-bg: #cbd5e1;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
         body {
             font-family: 'Inter', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            color: #e2e8f0;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
 
         header {
-            background: #0f172a;
-            color: #f8fafc;
+            background: var(--header-bg);
+            color: var(--header-text);
             padding: 2rem 1rem;
             text-align: center;
-            border-bottom: 2px solid #1e293b;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid var(--header-border);
+            box-shadow: 0 4px 10px var(--shadow-color);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
 
         header h1 {
@@ -34,24 +78,50 @@
         header p {
             margin-top: 0.5rem;
             font-size: 1rem;
-            color: #94a3b8;
+            color: var(--secondary-text);
         }
 
         nav {
-            background: #1e293b;
+            background: var(--nav-bg);
             padding: 1rem;
             text-align: center;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         nav a {
-            color: #e2e8f0;
-            margin: 0 1rem;
+            color: var(--nav-link-color);
+            margin: 0 0.5rem;
             text-decoration: none;
             font-weight: 600;
         }
 
         nav a:hover {
             text-decoration: underline;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: 2px solid var(--button-bg);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin: 0;
+            width: auto;
+            display: inline-block;
+            box-shadow: none;
+        }
+
+        #theme-toggle:hover {
+            background: var(--button-bg);
+            color: #fff;
+            transform: translateY(-2px);
         }
 
         main {
@@ -68,36 +138,41 @@
             display: flex;
             justify-content: space-between;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .json-input,
         .results {
-            background-color: #1e293b;
+            background-color: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px var(--shadow-color);
             width: 48%;
+            min-width: 300px;
+            flex: 1;
+            transition: background-color 0.3s;
         }
 
         textarea {
             width: 100%;
             height: 200px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--input-border);
             border-radius: 4px;
             padding: 10px;
             font-family: 'Fira Code', monospace;
             font-size: 14px;
             resize: vertical;
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         button {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #4f46e5;
-            color: #fff;
+            background-color: var(--button-bg);
+            color: var(--button-text);
             border: none;
             border-radius: 4px;
             font-size: 16px;
@@ -123,28 +198,29 @@
         .result-section h3 {
             margin: 0 0 10px 0;
             font-size: 18px;
-            color: #94a3b8;
+            color: var(--secondary-text);
         }
 
         .result-section pre {
-            background-color: #0f172a;
+            background-color: var(--pre-bg);
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--input-border);
             border-radius: 4px;
             font-size: 14px;
             overflow-x: auto;
-            color: #a3e635;
+            color: var(--pre-text);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         .percentage {
             font-size: 14px;
-            color: #94a3b8;
+            color: var(--secondary-text);
             margin-top: 5px;
         }
 
         .progress-bar {
             width: 100%;
-            background-color: #ddd;
+            background-color: var(--progress-bg);
             border-radius: 4px;
             overflow: hidden;
             margin-top: 10px;
@@ -191,6 +267,7 @@
         <a href="index.html">Generated JavaScript Code</a>
         <a href="Data_Formatter.html">API Formatter</a>
         <a href="JSON_Comparator.html">JSON Comparator</a>
+        <button id="theme-toggle" onclick="toggleTheme()" style="font-size: 1.2rem; padding: 0.5rem; width: auto; display: inline-block;">🌙</button>
     </nav>
     <main>
         <div class="container">
@@ -272,14 +349,55 @@
         </div>
     </main>
     <script>
+        // Theme Logic
+        function updateThemeIcon(theme) {
+            const toggleBtn = document.getElementById('theme-toggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+        }
+
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const theme = savedTheme || systemTheme;
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            updateThemeIcon(currentTheme);
+        });
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
         function updateTextAreas() {
-            const count = document.getElementById('account-count').value;
+            const count = parseInt(document.getElementById('account-count').value);
             const container = document.getElementById('json-textareas');
+            const currentTextareas = container.querySelectorAll('textarea');
+            const currentValues = Array.from(currentTextareas).map(t => t.value);
+
             container.innerHTML = '';
+
             for (let i = 1; i <= count; i++) {
+                const h2 = document.createElement('h2');
+                h2.textContent = `JSON ${i}`;
+                container.appendChild(h2);
+
                 const textarea = document.createElement('textarea');
                 textarea.id = `json${i}`;
-                container.appendChild(document.createElement('h2')).textContent = `JSON ${i}`;
+                textarea.placeholder = `Paste JSON data for account ${i} here...`;
+                
+                if (i <= currentValues.length) {
+                    textarea.value = currentValues[i - 1];
+                }
+                
                 container.appendChild(textarea);
             }
         }
