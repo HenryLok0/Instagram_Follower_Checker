@@ -12,11 +12,11 @@ This code fetches Instagram user's friendship statistics, displaying:
  
 ## Website
 
-1. Generate JavaScript code to check Instagram account details. https://henrylok0.github.io/Instagram_Follower_Checker/index.html
+1. Generate JavaScript code to check Instagram account details. [https://henrylok0.github.io/Instagram_Follower_Checker/index.html](https://henrylok0.github.io/Instagram_Follower_Checker/web/index.html)
    
-2. Transform your raw API data into a structured JSON format easily. https://henrylok0.github.io/Instagram_Follower_Checker/Data_Formatter.html
+2. Transform your raw API data into a structured JSON format easily. [https://henrylok0.github.io/Instagram_Follower_Checker/Data_Formatter.html](https://henrylok0.github.io/Instagram_Follower_Checker/web/Data_Formatter.html)
 
-3. Comparator (2-5 Instagram accounts) with the same followers and following Instagram accounts. https://henrylok0.github.io/Instagram_Follower_Checker/JSON_Comparator.html
+3. Comparator (2-5 Instagram accounts) with the same followers and following Instagram accounts. [https://henrylok0.github.io/Instagram_Follower_Checker/JSON_Comparator.html](https://henrylok0.github.io/Instagram_Follower_Checker/web/JSON_Comparator.html)
 
 ## Safety & Privacy
 
